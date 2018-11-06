@@ -7,24 +7,32 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, logout
 
 # Create your views here.
+"""A view is where we put the main logic of our application. It will request
+information from the model we have created and pass it to a template written in HTML.
+HTML - Hyper text - type of text that supports hyperlinks between pages.
+       Markup - Marked up a document in code to tell the browser how to interpret the page."""
 
 def post_list(request):
+    #Publish the most recent posts first.
     posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('-published_date')
     return render(request, 'blog/post_list.html', {'posts': posts})
 
 def post_detail(request, pk):
+    #Show the individual page for the post.
     post = get_object_or_404(Post, pk=pk)
     return render(request, 'blog/post_detail.html', {'post':post})
 
 @login_required
 def post_new(request):
     if request.method == "POST":
+        #Show blank form to allow user to enter information.
         form = PostForm(request.POST)
         if form.is_valid():
-            post = form.save(commit=False)
+            post = form.save(commit=False) #Add author before saving.
             post.author = request.user
             post.save()
-            return redirect('post_detail', pk=post.pk)
+            #Redirect to individual post page to show the post.
+            return redirect('post_detail', pk=post.pk) 
     else:
         form = PostForm()
     return render(request, 'blog/post_edit.html', {'form':form})
@@ -61,6 +69,7 @@ def post_remove(request, pk):
     return redirect('post_list')
     
 def add_comment_to_post(request, pk):
+    #Allow visitors to post comments.
     post = get_object_or_404(Post, pk=pk)
     if request.method == "POST":
         form = CommentForm(request.POST)

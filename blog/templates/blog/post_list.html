@@ -3,10 +3,12 @@
 {% block content %}
     {% for post in posts %}
         <div class="post">
+            <!-- Link to the individual post page -->
             <h1><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h1>
             <div class="date">
                 <p>Published: {{ post.published_date }}</p>
             </div>
+            <!-- Only show an excerpt of the post and a link to continue reading -->
             <p>{{ post.text|safe|truncatewords:"75"|linebreaksbr }}<a href="{% url 'post_detail' pk=post.pk %}">  (continue reading)</a></p>
             <a href="{% url 'post_detail' pk=post.pk %}">Comments: {{ post.approved_comments.count }}</a>
         </div>

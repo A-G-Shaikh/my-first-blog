@@ -123,4 +123,5 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
+#Redirect log out back to home page.
 LOGOUT_REDIRECT_URL = '/'

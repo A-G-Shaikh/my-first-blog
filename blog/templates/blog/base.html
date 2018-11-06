@@ -2,31 +2,35 @@
 
 <!DOCTYPE html>
 <html lang="en">
-    <head>
+    <head> <!--Information about the document that is not displayed on the screen -->
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Program with me</title>
+        <title>Program with me</title> <!-- What will appear in the title bar of the browser -->
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
         <link href="//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext" rel="stylesheet" type="text/css">
         <link rel="stylesheet" href="{% static 'css/blog.css' %}">
     </head>
-    <body>
+    <body> <!-- Everything else that is displayed as part of the web page -->
         <div class="page-header">
             {% if user.is_authenticated %}
+                <!-- Create a new post -->
                 <a href="{% url 'post_new' %}" class="top-menu"><span class="glyphicon glyphicon-plus"></span></a>
+                <!-- Go to unpublished posts -->
                 <a href="{% url 'post_draft_list' %}" class="top-menu"><span class="glyphicon glyphicon-edit"></span></a>
+                <!-- Greeting for logged in user and logout link -->
                 <p class="top-menu">Hello {{ user.username }} <small>(<a href="{% url 'users:logout' %}">Log out</a>)</small></p>
             {% else %}
+                <!-- Login link for blog author -->
                 <a href="{% url 'users:login' %}" class="top-menu"><span class="glyphicon glyphicon-lock"></span></a>
             {% endif %}
-            <h1><a href="/">Program with me</a></h1>
+            <h1><a href="/">Program with me</a></h1> <!-- Page title displayed to visitors -->
         </div>
         
         <div class="content container">
             <div class="row">
-                <div class="col-md-8">
+                <div class="col-md-8"> <!-- Posts will appear down below -->
                 {% block content %}
                 {% endblock content %}
                 </div>

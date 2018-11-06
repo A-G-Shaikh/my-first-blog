@@ -10,6 +10,7 @@
         {{ form.as_p }}
         
         <button name="submit">Log in</button>
+        <!-- Redirect to home page after successful log in -->
         <input type="hidden" name="next" value="{% url 'post_list' %}" />
     </form>
 {% endblock content %}
